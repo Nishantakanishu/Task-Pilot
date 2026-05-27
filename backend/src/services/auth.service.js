@@ -1,6 +1,7 @@
 const User = require("../models/User.model");
 const ApiError = require("../utils/ApiError");
 const { generateToken } = require("../utils/generateToken");
+const { DEMO_USER, ensureDemoUser } = require("../utils/seedDemoUser");
 
 const registerUser = async ({ name, email, password }) => {
   // Check if email already exists
@@ -19,8 +20,16 @@ const registerUser = async ({ name, email, password }) => {
 };
 
 const loginUser = async ({ email, password }) => {
+  const normalizedEmail = email.trim().toLowerCase();
+
+  // Keep the demo admin self-healing so a stale or duplicated production record
+  // cannot block access after a deployment.
+  if (normalizedEmail === DEMO_USER.email) {
+    await ensureDemoUser();
+  }
+
   // Find user (explicitly select password since select:false in schema)
-  const user = await User.findOne({ email }).select("+password");
+  const user = await User.findOne({ email: normalizedEmail }).select("+password");
   if (!user) {
     throw new ApiError(401, "Invalid email or password");
   }

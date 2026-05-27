@@ -1,13 +1,13 @@
 const app = require("./app");
 const connectDB = require("./config/db");
-const { PORT, NODE_ENV } = require("./config/env");
+const { PORT } = require("./config/env");
 const { ensureDemoUser } = require("./utils/seedDemoUser");
 
 const startServer = async () => {
   await connectDB();
-  if (NODE_ENV !== "production") {
-    await ensureDemoUser();
-  }
+  // Keep the demo admin account available on every deployment.
+  const demoUser = await ensureDemoUser();
+  console.log(`Demo admin ready: ${demoUser.email}`);
   app.listen(PORT, () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
   });

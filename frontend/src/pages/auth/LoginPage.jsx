@@ -19,7 +19,7 @@ import { useAuth } from "../../context/AuthContext";
 import api from "../../api/axios";
 
 const DEMO_EMAIL = "nishuchaube12@gmail.com";
-const DEMO_PASSWORD = "12345678";
+const DEMO_PASSWORD = "123456";
 
 const features = [
   {

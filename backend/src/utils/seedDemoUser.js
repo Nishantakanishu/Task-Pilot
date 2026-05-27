@@ -1,21 +1,31 @@
 const User = require("../models/User.model");
 const ROLES = require("../constants/roles");
+const bcrypt = require("bcryptjs");
 
 const DEMO_USER = {
   name: "Nishu Chaubey",
   email: "nishuchaube12@gmail.com",
-  password: "12345678",
+  password: "123456",
   role: ROLES.ADMIN,
 };
 
 const ensureDemoUser = async () => {
-  const existingUser = await User.findOne({ email: DEMO_USER.email });
+  const hashedPassword = await bcrypt.hash(DEMO_USER.password, 12);
 
+  // Update every matching document so stale duplicates cannot keep old credentials around.
+  await User.updateMany(
+    { email: DEMO_USER.email },
+    {
+      $set: {
+        name: DEMO_USER.name,
+        password: hashedPassword,
+        role: DEMO_USER.role,
+      },
+    }
+  );
+
+  const existingUser = await User.findOne({ email: DEMO_USER.email });
   if (existingUser) {
-    existingUser.name = DEMO_USER.name;
-    existingUser.password = DEMO_USER.password;
-    existingUser.role = DEMO_USER.role;
-    await existingUser.save();
     return existingUser;
   }
 
