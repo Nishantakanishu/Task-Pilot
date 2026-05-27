@@ -11,4 +11,7 @@ export default defineConfig({
   server: {
     port: 5173,
   },
+  preview: {
+    allowedHosts: ['abundant-truth-production-7cbb.up.railway.app'],
+  },
 })
