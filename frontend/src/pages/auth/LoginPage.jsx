@@ -18,9 +18,6 @@ import { loginSchema } from "../../validations/auth.validation";
 import { useAuth } from "../../context/AuthContext";
 import api from "../../api/axios";
 
-const DEMO_EMAIL = "nishuchaube12@gmail.com";
-const DEMO_PASSWORD = "123456";
-
 const features = [
   {
     Icon: LayoutDashboard,
@@ -746,48 +743,8 @@ const LoginPage = () => {
                   maxWidth: 420,
                 }}
               >
-                Use your workspace email to continue. For a quick demo, try{" "}
-                <span style={{ color: "#1E5FFF", fontWeight: 700 }}>{DEMO_EMAIL}</span> with password{" "}
-                <span style={{ color: "#FF7A1A", fontWeight: 700 }}>{DEMO_PASSWORD}</span>.
+                Use your workspace email to continue.
               </p>
-            </div>
-
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 12,
-                marginBottom: 22,
-                padding: "13px 14px",
-                borderRadius: 22,
-                background: "linear-gradient(135deg, rgba(30,95,255,0.08), rgba(255,122,26,0.08))",
-                border: "1px solid rgba(216,227,255,0.82)",
-                boxShadow: "0 12px 24px rgba(30,95,255,0.06)",
-              }}
-            >
-              <div
-                style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: 14,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  background: "linear-gradient(135deg, #1E5FFF 0%, #5E87FF 42%, #FF7A1A 135%)",
-                  boxShadow: "0 12px 22px rgba(30,95,255,0.16)",
-                  flexShrink: 0,
-                }}
-              >
-                <Sparkles size={18} color="#ffffff" />
-              </div>
-              <div style={{ minWidth: 0 }}>
-                <div style={{ color: "#0C1B3A", fontSize: 13, fontWeight: 800, marginBottom: 2 }}>
-                  Demo login ready
-                </div>
-                <div style={{ color: "#5B6B8A", fontSize: 12.5, lineHeight: 1.45, wordBreak: "break-word" }}>
-                  {DEMO_EMAIL} · {DEMO_PASSWORD}
-                </div>
-              </div>
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} noValidate>
